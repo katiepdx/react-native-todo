@@ -1,12 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { View, Text, StyleSheet, Image } from 'react-native'
 import doneIcon from '../assets/completed/done.png'
 import notDoneIcon from '../assets/completed/not-done.png'
 
 export const TodoItem = ({ todo }) => {
+  const [viewNotes, setViewNotes] = useState(false)
+
+  const handleNoteToggle = () => {
+    viewNotes ? setViewNotes(false) : setViewNotes(true)
+  }
+
   return (
-    <View style={todo.completed ? styles.done : styles.notDone}>
-      <Text>
+    <View style={todo.completed ? styles.done : styles.notDone} >
+      <Text onPress={handleNoteToggle}>
         {
           todo.completed
             ? <Image source={doneIcon} style={styles.image} />
@@ -14,8 +20,8 @@ export const TodoItem = ({ todo }) => {
         }
         <Text>Todo: {todo.todo}</Text>
       </Text>
-      <Text>Notes: {todo.notes}</Text>
-    </View>
+      <Text style={viewNotes ? styles.hidden : styles.display} onPress={handleNoteToggle} > Notes: {todo.notes}</Text>
+    </View >
   )
 }
 
@@ -37,5 +43,7 @@ const styles = StyleSheet.create({
     borderRadius: 3
   },
   text: { fontSize: 20 },
-  image: { height: 20, width: 20 }
+  image: { height: 20, width: 20 },
+  hidden: { display: 'none' },
+  display: { display: 'flex' }
 });
