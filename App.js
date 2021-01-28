@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, ScrollView } from 'react-native';
 import { Header } from 'react-native-elements';
 import { TodoList } from './components/TodoList';
 import { myTodos } from './mock-data';
@@ -16,7 +16,11 @@ export default function App() {
         rightComponent={{ text: 'right' }}
       />
 
-      <TodoList myTodos={myTodos} />
+      <ScrollView>
+        {/* Wrap in ScrollView so the overflow todos scroll */}
+        <TodoList myTodos={myTodos} />
+      </ScrollView>
+
       <StatusBar style="auto" />
     </SafeAreaView>
   );

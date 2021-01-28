@@ -8,6 +8,7 @@ export const TodoItem = ({ todo }) => {
       <Text style={styles.text, todo.completed ? styles.done : styles.notDone}>
         Status: {todo.completed ? 'DONE' : 'not done'}
       </Text>
+      <Text>Notes: {todo.notes}</Text>
     </View>
   )
 }
