@@ -5,7 +5,6 @@ import { Header } from 'react-native-elements';
 import { TodoList } from './components/TodoList';
 import { myTodos } from './mock-data';
 
-
 export default function App() {
   return (
     // SafeAreaView adds padding so the notch doesn't cover the content
@@ -16,7 +15,8 @@ export default function App() {
         rightComponent={{ text: 'right' }}
       />
 
-      <ScrollView>
+      {/* maximum zoom scale allows for pinch to zoom */}
+      <ScrollView maximumZoomScale={5}>
         {/* Wrap in ScrollView so the overflow todos scroll */}
         <TodoList myTodos={myTodos} />
       </ScrollView>
