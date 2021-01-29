@@ -7,16 +7,24 @@ export const TodoList = ({ myTodos }) => {
   const handleSwipeLeft = () => (<Text style={styles.swipeLeft}>Delete</Text>)
   const handleSwipeRight = () => (<Text style={styles.swipeRight}>Completed</Text>)
 
-  return myTodos.map((todo, index) => (
-    <View key={index} >
-      <Swipeable
-        renderLeftActions={handleSwipeLeft}
-        renderRightActions={handleSwipeRight}
-      >
-        <TodoItem todo={todo} />
-      </Swipeable>
-    </View >
-  ))
+  return (
+    <FlatList
+      data={myTodos}
+      // key - destructured todo
+      keyExtractor={({ todo }) => todo}
+      // renderItem MUST be passed an item
+      renderItem={({ item }) => (
+        <View >
+          <Swipeable
+            renderLeftActions={handleSwipeLeft}
+            renderRightActions={handleSwipeRight}
+          >
+            <TodoItem todo={item} />
+          </Swipeable>
+        </View >
+      )}
+    />
+  )
 }
 
 const styles = StyleSheet.create({
