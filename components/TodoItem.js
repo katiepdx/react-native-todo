@@ -4,7 +4,7 @@ import doneIcon from '../assets/completed/done.png'
 import notDoneIcon from '../assets/completed/not-done.png'
 
 export const TodoItem = ({ todo }) => {
-  const [viewNotes, setViewNotes] = useState(false)
+  const [viewNotes, setViewNotes] = useState(true)
 
   const handleNoteToggle = () => {
     viewNotes ? setViewNotes(false) : setViewNotes(true)
@@ -12,15 +12,15 @@ export const TodoItem = ({ todo }) => {
 
   return (
     <View style={todo.completed ? styles.done : styles.notDone} >
-      <Text onPress={handleNoteToggle}>
-        {
-          todo.completed
-            ? <Image source={doneIcon} style={styles.image} />
-            : <Image source={notDoneIcon} style={styles.image} />
-        }
-        <Text>Todo: {todo.todo}</Text>
-      </Text>
-      <Text style={viewNotes ? styles.hidden : styles.display} onPress={handleNoteToggle} > Notes: {todo.notes}</Text>
+        <Text onPress={handleNoteToggle}>
+          {
+            todo.completed
+              ? <Image source={doneIcon} style={styles.image} />
+              : <Image source={notDoneIcon} style={styles.image} />
+          }
+          <Text>Todo: {todo.todo}</Text>
+        </Text>
+        <Text style={viewNotes ? styles.hidden : styles.display} onPress={handleNoteToggle} > Notes: {todo.notes}</Text>
     </View >
   )
 }
