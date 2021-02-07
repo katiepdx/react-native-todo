@@ -19,7 +19,7 @@ export default function App() {
         setMyTodos(apiRes)
       }
     )()
-  }, [])
+  }, [userTodos])
 
   return (
     // SafeAreaView adds padding so the notch doesn't cover the content

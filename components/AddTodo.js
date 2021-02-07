@@ -1,19 +1,36 @@
 import React, { useState } from 'react'
 import { Text } from 'react-native-elements'
 import { Button, StyleSheet, View, TextInput } from 'react-native'
+import { addTodo } from '../services/api-service'
+import { API_URL } from '@env'
 
 const AddTodo = () => {
   const [email, setEmail] = useState('');
-  const [todo, setTodo] = useState('');
+  const [userTodo, setTodo] = useState('');
   const [todoNotes, setTodoNotes] = useState('');
   const [completedState, setCompletedState] = useState(false)
 
   const handleEmailChange = (email) => setEmail(email)
-  const handleTodoChange = (todo) => setTodo(todo)
+  const handleTodoChange = (userTodo) => setTodo(userTodo)
   const handleTodoNotesChange = (todoNotes) => setTodoNotes(todoNotes)
 
-  const handleSubmit = () => {
-    console.log(email, todo, todoNotes, completedState)
+  const handleSubmit = async () => {
+    // check for a blank form
+    if (!email || !userTodo || !todoNotes) {
+      return alert('Please add a todo')
+    }
+
+    const todoToAdd = {
+      userEmail: email,
+      todo: userTodo,
+      notes: todoNotes,
+      completed: completedState,
+      dateAdded: new Date(Date.now())
+    }
+
+    await addTodo(API_URL, todoToAdd)
+
+    // reset form
     setEmail('')
     setTodo('')
     setTodoNotes('')
@@ -36,7 +53,7 @@ const AddTodo = () => {
           placeholder='Add a todo!'
           autoCapitalize='sentences'
           style={styles.formStyle}
-          value={todo}
+          value={userTodo}
           onChangeText={handleTodoChange}
         />
 
