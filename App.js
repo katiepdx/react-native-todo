@@ -1,12 +1,26 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View, SafeAreaView, ScrollView } from 'react-native';
-import { Header } from 'react-native-elements';
-// import AddTodo from './components/AddTodo';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, View, SafeAreaView, ScrollView } from 'react-native';
+import { Header, Text } from 'react-native-elements';
+import AddTodo from './components/AddTodo';
 import { TodoList } from './components/TodoList';
-import { myTodos } from './mock-data';
+import { getTodos } from './services/api-service';
+import { API_URL } from '@env';
 
 export default function App() {
+  const [userTodos, setMyTodos] = useState([])
+
+  // fetch all todos
+  useEffect(() => {
+    (
+      async () => {
+        const url = API_URL
+        const apiRes = await getTodos(url)
+        setMyTodos(apiRes)
+      }
+    )()
+  }, [])
+
   return (
     // SafeAreaView adds padding so the notch doesn't cover the content
     <SafeAreaView style={styles.container}>
@@ -16,12 +30,14 @@ export default function App() {
         rightComponent={{ text: 'right' }}
       />
 
-      {/* <AddTodo /> */}
+      <AddTodo />
 
       {/* maximum zoom scale allows for pinch to zoom */}
       <ScrollView maximumZoomScale={5}>
+        <Text h1>My Todos</Text>
+
         {/* Wrap in ScrollView so the overflow todos scroll */}
-        <TodoList myTodos={myTodos} />
+        <TodoList myTodos={userTodos} />
       </ScrollView>
 
       <StatusBar style="auto" />

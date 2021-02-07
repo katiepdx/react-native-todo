@@ -1,22 +1,61 @@
-import React from 'react'
-import { Button, StyleSheet, Text, View, TextInput } from 'react-native'
+import React, { useState } from 'react'
+import { Text } from 'react-native-elements'
+import { Button, StyleSheet, View, TextInput } from 'react-native'
 
 const AddTodo = () => {
+  const [email, setEmail] = useState('');
+  const [todo, setTodo] = useState('');
+  const [todoNotes, setTodoNotes] = useState('');
+  const [completedState, setCompletedState] = useState(false)
+
+  const handleEmailChange = (email) => setEmail(email)
+  const handleTodoChange = (todo) => setTodo(todo)
+  const handleTodoNotesChange = (todoNotes) => setTodoNotes(todoNotes)
+
+  const handleSubmit = () => {
+    console.log(email, todo, todoNotes, completedState)
+    setEmail('')
+    setTodo('')
+    setTodoNotes('')
+  }
   return (
-    <View style={styles.addTodo}>
-      {/* Add a todo with TextInput */}
-      <Text>Todo</Text>
-      <TextInput
-        placeholder='Add a todo!'
-        autoCapitalize='sentences'
-        style={styles.borders}
-      />
+    <View>
+      <View style={styles.addTodo}>
+        <Text h1>Add a New Todo</Text>
+
+        <Text>Email</Text>
+        <TextInput
+          placeholder='hello@email.com'
+          style={styles.formStyle}
+          value={email}
+          onChangeText={handleEmailChange}
+        />
+
+        <Text>Todo</Text>
+        <TextInput
+          placeholder='Add a todo!'
+          autoCapitalize='sentences'
+          style={styles.formStyle}
+          value={todo}
+          onChangeText={handleTodoChange}
+        />
+
+        <Text>Notes</Text>
+        <TextInput
+          placeholder='notes about my todo'
+          autoCapitalize='sentences'
+          style={styles.formStyle}
+          value={todoNotes}
+          onChangeText={handleTodoNotesChange}
+        />
+      </View>
 
       <Button
-        onPress={() => console.log('button pressed')}
+        onPress={handleSubmit}
         title='Submit'
         accessibilityLabel='add a todo'
-        style={styles.borders} />
+        style={styles.button}
+      />
     </View>
   )
 }
@@ -24,16 +63,20 @@ const AddTodo = () => {
 export default AddTodo
 
 const styles = StyleSheet.create({
-  borders: {
-    borderColor: 'red',
+  formStyle: {
+    borderColor: 'grey',
+    borderBottomWidth: 2
+  },
+  border: {
+    borderColor: 'grey',
+    borderStyle: 'solid',
     borderWidth: 2,
-    borderStyle: 'solid'
   },
   addTodo: {
-    height: 100,
-    borderColor: 'blue',
+    borderColor: 'grey',
     borderStyle: 'solid',
-    borderWidth: 10,
-    backgroundColor: 'red'
+    borderWidth: 2,
+    margin: 5,
+    padding: 20
   }
 })
