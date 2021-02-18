@@ -1,11 +1,11 @@
-import React from 'react'
-import { View, Text, StyleSheet, FlatList } from 'react-native'
-import Swipeable from 'react-native-gesture-handler/Swipeable'
-import { TodoItem } from './TodoItem'
+import React from 'react';
+import { View, Text, StyleSheet, FlatList } from 'react-native';
+import Swipeable from 'react-native-gesture-handler/Swipeable';
+import { TodoItem } from './TodoItem';
 
 export const TodoList = ({ myTodos }) => {
-  const handleSwipeLeft = () => <Text style={styles.swipeLeft}>Complete</Text>
-  const handleSwipeRight = () => <Text style={styles.swipeRight}>Delete</Text>
+  const handleSwipeLeft = () => <Text style={styles.swipeLeft}> Complete</Text >;
+  const handleSwipeRight = () => <Text style={styles.swipeRight}>Delete</Text>;
 
   return (
     <FlatList
@@ -14,18 +14,18 @@ export const TodoList = ({ myTodos }) => {
       keyExtractor={({ todo }) => todo}
       // renderItem MUST be passed an item
       renderItem={({ item }) => (
-        <View >
+        <View>
           <Swipeable
             renderLeftActions={handleSwipeLeft}
             renderRightActions={handleSwipeRight}
           >
             <TodoItem todo={item} />
           </Swipeable>
-        </View >
+        </ View>
       )}
     />
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   swipeLeft: {

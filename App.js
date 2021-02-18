@@ -8,21 +8,20 @@ import { getTodos } from './services/api-service';
 import { API_URL } from '@env';
 
 export default function App() {
-  const [userTodos, setMyTodos] = useState([])
+  const [userTodos, setMyTodos] = useState([]);
 
   // fetch all todos
   useEffect(() => {
     (
       async () => {
-        const url = API_URL
-        const apiRes = await getTodos(url)
-        setMyTodos(apiRes)
+        const url = API_URL;
+        const apiRes = await getTodos(url);
+        setMyTodos(apiRes);
       }
-    )()
-  }, [userTodos])
+    )();
+  }, [userTodos]);
 
   return (
-    // SafeAreaView adds padding so the notch doesn't cover the content
     <SafeAreaView style={styles.container}>
       <Header
         leftComponent={{ text: 'left' }}
@@ -32,13 +31,8 @@ export default function App() {
 
       <AddTodo />
 
-      {/* maximum zoom scale allows for pinch to zoom */}
-      <ScrollView maximumZoomScale={5}>
-        <Text h1>My Todos</Text>
-
-        {/* Wrap in ScrollView so the overflow todos scroll */}
-        <TodoList myTodos={userTodos} />
-      </ScrollView>
+      <Text h1>My Todos</Text>
+      <TodoList myTodos={userTodos} />
 
       <StatusBar style="auto" />
     </SafeAreaView>
